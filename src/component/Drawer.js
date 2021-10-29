@@ -1,11 +1,11 @@
-function Drawer(){
+function Drawer() {
   return (
-    <div style={{ display: 'none'}} className="overlay">
+    <div style={{ display: 'none' }} className="overlay">
       <div className="drawer flex flex-col">
         <div className="flex justify-between items-center mb-10">
           <h2 className="font-bold text-2xl">Корзина</h2>
           <button className="cart_remove">
-                <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove"/>
+            <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove" />
           </button>
         </div>
         <div className="flex-grow overflow-auto">
@@ -16,7 +16,7 @@ function Drawer(){
               <p className="font-bold">12999 руб.</p>
             </div>
             <button className="cart_remove">
-                <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove"/>
+              <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove" />
             </button>
           </div>
 
@@ -27,10 +27,9 @@ function Drawer(){
               <p className="font-bold">12999 руб.</p>
             </div>
             <button className="cart_remove">
-                <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove"/>
+              <img width={11} height={11} className="m-auto" src="/img/remove.svg" alt="remove" />
             </button>
           </div>
-          
         </div>
         <div className="flex flex-col">
           <ul>
@@ -43,7 +42,8 @@ function Drawer(){
               <b>1074 руб.</b>
             </li>
           </ul>
-          <button className="greenBtn">Оформить заказ
+          <button className="greenBtn">
+            Оформить заказ
             <img className="inline" src="img/arrow.svg" alt="arrow" />
           </button>
         </div>

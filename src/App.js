@@ -1,66 +1,34 @@
+import React from 'react';
 import Card from './component/Card';
 import Header from './component/Header';
 import Drawer from './component/Drawer';
 
-const arr = [
-  { title:"Мужские Кроссовки Nike Blazer Mid Suede",
-    price: "7999",
-    imageUrl: "/img/Sneakers/image1.png"
-  },
-  { title:"Мужские Кроссовки Nike Air Max 270",
-    price: "12999",
-    imageUrl: "/img/Sneakers/image2.png"
-  },
-  { title:"Мужские Кроссовки Nike Blazer Mid Suede",
-    price: "12999",
-    imageUrl: "/img/Sneakers/image3.png"
-  },
-  { title:"Кроссовки Puma X Aka Boku Future Rider",
-    price: "12999",
-    imageUrl: "/img/Sneakers/image4.png"
-  },
-  { title:"Мужские Кроссовки Under Armour Curry 8",
-    price: "15199",
-    imageUrl: "/img/Sneakers/image5.png"
-  },
-  { title:"Мужские Кроссовки Nike Kyrie 7",
-    price: "11299",
-    imageUrl: "/img/Sneakers/image6.png"
-  },
-  { title:"Мужские Кроссовки Jordan Air Jordan 11",
-    price: "10799",
-    imageUrl: "/img/Sneakers/image7.png"
-  },
-  { title:"Мужские Кроссовки Nike LeBron XVIII",
-    price: "16499",
-    imageUrl: "/img/Sneakers/image8.png"
-  },
-  { title:"Мужские Кроссовки Nike Lebron XVIII Low",
-    price: "13499",
-    imageUrl: "/img/Sneakers/image9.png"
-  },
-  { title:"Мужские Кроссовки Nike Blazer Mid Suede",
-    price: "8499",
-    imageUrl: "/img/Sneakers/image10.png"
-  },
-  { title:"Кроссовки Puma X Aka Boku Future Rider",
-    price: "8999",
-    imageUrl: "/img/Sneakers/image11.png"
-  },
-  { title:"Мужские Кроссовки Nike Kyrie Flytrap IV",
-    price: "11299",
-    imageUrl: "/img/Sneakers/image12.png"
-  },
-]
-
 function App() {
+  const[cartOpened, setCartOpened] = React.useState(false);
+  const[items, setItems] = React.useState([]);
+  const[cartItems, setCartItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://617fbc43055276001774fc10.mockapi.io/items')
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      setItems(json);
+    });
+  }, []);
+
+  const onAddToCart = (obj) => {
+    setCartItems(prev => [...prev, obj]);
+  }
+
   return (
     <div className="wrapper pb-10">
       {/*DRAWER*/}
-      <Drawer />
+      {cartOpened && <Drawer items={cartItems} onCloseCart={()=> setCartOpened(false)}/>}
       {/*END DRAWER*/}
       {/*HEADER*/}
-      <Header />
+      <Header onClickCart={()=> setCartOpened(true)}/>
       {/*END HEADER*/}
       {/*CONTAINER*/}
       <div className="container mx-auto mt-9 sm:container sm:mx-auto md:container md:mx-auto lg:px-14">
@@ -73,11 +41,13 @@ function App() {
         </div>
         <div className="mt-9 xs_card_grid grid gap-10 sm:gap-5 sm:justify-items-center sm:grid-cols-2 md:gap-10 md:grid-cols-3 lg:grid-cols-4">
         {/*CARD*/}
-        {arr.map((obj) =>(
+        {items.map((item) =>(
           <Card 
-            title={obj.title}
-            price={obj.price}
-            imageUrl={obj.imageUrl}
+            title={item.title}
+            price={item.price}
+            imageUrl={item.imageUrl}
+            onFavorite={(obj)=>console.log(obj)}
+            onAdd={(obj)=>onAddToCart(obj)}
             />
         ))}
         {/*END CARD*/}
